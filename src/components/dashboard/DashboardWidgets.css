@@ -1,0 +1,470 @@
+/* Dashboard Widgets Styles */
+
+/* Neural Synergy Gauge */
+.neural-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-svg {
+  filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.3));
+}
+
+.gauge-center {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-percentage {
+  text-align: center;
+}
+
+.percentage-value {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  color: #00f2ff;
+  text-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.percentage-label {
+  display: block;
+  font-size: 12px;
+  color: rgba(0, 242, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gauge-info {
+  text-align: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.gauge-info p {
+  color: rgba(0, 242, 255, 0.7);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Knowledge Atrophy Alert */
+.atrophy-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.alert-icon {
+  color: #ff6b35;
+  filter: drop-shadow(0 0 8px #ff6b35);
+  animation: alert-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes alert-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px #ff6b35);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #ff6b35);
+  }
+}
+
+.critical-badge {
+  display: inline-block;
+  background: rgba(255, 107, 53, 0.2);
+  color: #ff6b35;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.atrophy-item {
+  padding: 12px;
+  background: rgba(255, 107, 53, 0.05);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.atrophy-item:hover {
+  background: rgba(255, 107, 53, 0.1);
+  border-color: rgba(255, 107, 53, 0.4);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.item-header h4 {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.decay-level {
+  color: #ff6b35;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.item-action {
+  display: flex;
+  gap: 10px;
+}
+
+.reinforce-btn {
+  flex: 1;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.reinforce-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+}
+
+.reinforce-btn:active {
+  transform: translateY(0);
+}
+
+.alert-footer {
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.alert-footer p {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+
+/* Learning Velocity Chart */
+.learning-velocity {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-footer {
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 242, 255, 0.1);
+  text-align: center;
+}
+
+.chart-footer p {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Cognitive Flow Stats */
+.cognitive-stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.stat-card {
+  padding: 16px;
+  background: rgba(0, 242, 255, 0.05);
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(0, 242, 255, 0.1);
+  border-color: rgba(0, 242, 255, 0.4);
+}
+
+.stat-icon {
+  color: #00f2ff;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4));
+}
+
+.stat-content {
+  text-align: left;
+}
+
+.stat-label {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.stat-value {
+  color: #00f2ff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.stat-desc {
+  color: rgba(0, 242, 255, 0.5);
+  font-size: 11px;
+  margin: 0;
+}
+
+.stats-footer {
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.stats-footer p {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 12px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Course Neural Cards */
+.courses-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.courses-header {
+  margin-bottom: 20px;
+}
+
+.courses-header h3 {
+  color: #00f2ff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.courses-subtitle {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 12px;
+  margin: 8px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.neural-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.neural-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h4 {
+  color: #00f2ff;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-level {
+  display: inline-block;
+  background: rgba(188, 19, 254, 0.2);
+  color: #bc13fe;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(188, 19, 254, 0.3);
+}
+
+/* Sparkline */
+.sparkline-container {
+  width: 100%;
+  height: 50px;
+  background: rgba(0, 242, 255, 0.05);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.sparkline {
+  width: 100%;
+  height: 100%;
+}
+
+/* Neural Density Section */
+.density-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.density-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.density-label {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.density-value {
+  color: #00f2ff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.density-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 242, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+.density-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f2ff, #bc13fe);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.6);
+}
+
+.density-text {
+  color: rgba(0, 242, 255, 0.5);
+  font-size: 11px;
+  margin: 0;
+  text-align: right;
+}
+
+/* Sync Button */
+.sync-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #00f2ff, #bc13fe);
+  color: #050505;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+}
+
+.sync-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 242, 255, 0.5);
+}
+
+.sync-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Cards Grid */
+@media (max-width: 1024px) {
+  .neural-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .neural-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

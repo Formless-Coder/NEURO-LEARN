@@ -1,0 +1,317 @@
+.neuro-tutor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 99;
+}
+
+.neuro-tutor-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 380px;
+  background: linear-gradient(135deg, rgba(5, 5, 5, 0.95) 0%, rgba(10, 10, 25, 0.95) 100%);
+  border-right: 1px solid rgba(0, 242, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+}
+
+.neuro-tutor-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.neuro-tutor-sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.neuro-tutor-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 255, 0.3);
+  border-radius: 3px;
+}
+
+.neuro-tutor-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 242, 255, 0.5);
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 242, 255, 0.1);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  color: #00f2ff;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 101;
+}
+
+.close-button:hover {
+  background: rgba(0, 242, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+/* Tutor Header */
+.tutor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  margin-top: 20px;
+}
+
+.tutor-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #00f2ff;
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+}
+
+.header-icon {
+  color: #bc13fe;
+  filter: drop-shadow(0 0 8px #bc13fe);
+}
+
+/* Quiz States */
+.quiz-idle-state,
+.quiz-active-state,
+.quiz-completed-state {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Node Info */
+.node-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.node-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.mastered {
+  background: rgba(188, 19, 254, 0.2);
+  color: #bc13fe;
+  border: 1px solid rgba(188, 19, 254, 0.5);
+}
+
+.status-badge.learning {
+  background: rgba(0, 242, 255, 0.2);
+  color: #00f2ff;
+  border: 1px solid rgba(0, 242, 255, 0.5);
+}
+
+.node-level {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quiz-start-button {
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+  background: rgba(188, 19, 254, 0.15) !important;
+  border-color: rgba(188, 19, 254, 0.5) !important;
+  color: #bc13fe !important;
+}
+
+.quiz-start-button:hover {
+  background: rgba(188, 19, 254, 0.25) !important;
+  box-shadow: 0 0 20px rgba(188, 19, 254, 0.3) !important;
+}
+
+/* Quiz Active State */
+.quiz-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f2ff, #bc13fe);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+.progress-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.quiz-question {
+  background: rgba(0, 242, 255, 0.05);
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.quiz-question h3 {
+  margin: 0;
+  color: #00f2ff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  text-align: left;
+}
+
+.quiz-option:hover {
+  background: rgba(0, 242, 255, 0.1);
+  border-color: rgba(0, 242, 255, 0.5);
+  color: #00f2ff;
+  transform: translateX(4px);
+}
+
+.option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(0, 242, 255, 0.15);
+  color: #00f2ff;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.quiz-option:hover .option-letter {
+  background: rgba(0, 242, 255, 0.3);
+}
+
+/* Quiz Completed State */
+.completion-badge {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.score-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(0, 242, 255, 0.1);
+  border: 2px solid rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+}
+
+.score-circle span:first-child {
+  font-size: 48px;
+  font-weight: 700;
+  color: #00f2ff;
+}
+
+.score-total {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+.quiz-completed-state h3 {
+  text-align: center;
+  color: #00f2ff;
+  margin: 16px 0;
+  font-size: 18px;
+}
+
+.completion-stats {
+  background: rgba(0, 242, 255, 0.05);
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px 0;
+}
+
+.mastery-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(188, 19, 254, 0.15);
+  border: 1px solid rgba(188, 19, 254, 0.5);
+  border-radius: 8px;
+  color: #bc13fe;
+  font-size: 13px;
+  margin: 12px 0;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.4);
+  }
+}
+
+@media (max-width: 768px) {
+  .neuro-tutor-sidebar {
+    width: 100%;
+  }
+}

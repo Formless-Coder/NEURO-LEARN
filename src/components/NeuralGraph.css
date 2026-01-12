@@ -1,0 +1,42 @@
+.neural-graph-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #050505 0%, #0a0a15 100%);
+  overflow: hidden;
+}
+
+.neural-graph-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.selected-indicator {
+  padding: 12px 20px;
+  background: rgba(0, 242, 255, 0.1);
+  border: 1px solid rgba(0, 242, 255, 0.5);
+  border-radius: 8px;
+  color: #00f2ff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: pulse-indicator 2s ease-in-out infinite;
+}
+
+@keyframes pulse-indicator {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  }
+}
+
+/* Canvas optimization */
+canvas {
+  display: block !important;
+}
