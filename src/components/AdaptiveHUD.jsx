@@ -4,10 +4,11 @@ import { Activity, Brain, Zap, BarChart2 } from 'lucide-react';
 import { useLearningStore } from '../store/learningStore';
 import './AdaptiveHUD.css';
 
-export const AdaptiveHUD = ({ responseTime = 0, isQuizActive = false }) => {
+export const AdaptiveHUD = ({ responseTime = 0, isQuizActive = false, isSimulating = false, onToggleSimulate = () => {} }) => {
   const [cognitiveLoad, setCognitiveLoad] = useState(30);
   const [retentionDecay, setRetentionDecay] = useState(50);
   const forgettingRate = useLearningStore((state) => state.forgettingRate);
+  const setForgettingRate = useLearningStore((state) => state.setForgettingRate);
   const nodes = useLearningStore((state) => state.nodes);
 
   // Calculate cognitive load based on response time
@@ -21,9 +22,13 @@ export const AdaptiveHUD = ({ responseTime = 0, isQuizActive = false }) => {
 
   // Calculate retention decay based on global forgetting rate
   useEffect(() => {
-    const masteredCount = nodes.filter((n) => n.mastered).length;
-    const decayFactor = 100 - forgettingRate * 100;
-    setRetentionDecay(Math.max(0, decayFactor * (masteredCount / Math.max(1, nodes.length))));
+    const nodeArray = Array.isArray(nodes) ? nodes : [];
+    const masteredCount = nodeArray.filter((n) => n.mastered).length;
+    const fr = Number.isFinite(forgettingRate) ? forgettingRate : 0;
+    const decayFactor = 100 - fr * 100;
+    const ratio = nodeArray.length > 0 ? masteredCount / nodeArray.length : 0;
+    const safeDecay = Math.max(0, decayFactor * ratio);
+    setRetentionDecay(Number.isFinite(safeDecay) ? safeDecay : 0);
   }, [forgettingRate, nodes]);
 
   const getLoadColor = (load) => {
@@ -100,8 +105,8 @@ export const AdaptiveHUD = ({ responseTime = 0, isQuizActive = false }) => {
             ))}
           </div>
         </div>
-        <div className="decay-percentage" style={{ color: retentionDecay > 60 ? '#0efa00' : '#ffc107' }}>
-          {Math.round(retentionDecay)}%
+        <div className="decay-percentage" style={{ color: (Number.isFinite(retentionDecay) ? retentionDecay : 0) > 60 ? '#0efa00' : '#ffc107' }}>
+          {Number.isFinite(retentionDecay) ? `${Math.round(retentionDecay)}%` : '0%'}
         </div>
         <div className="decay-label">Knowledge Retention</div>
       </motion.div>
@@ -143,9 +148,27 @@ export const AdaptiveHUD = ({ responseTime = 0, isQuizActive = false }) => {
           <span>Forgetting Curve</span>
         </div>
         <div className="time-decay-info">
-          <p className="decay-description">
-            Global Forgetting Rate: <strong>{(forgettingRate * 100).toFixed(1)}%</strong>
-          </p>
+            <p className="decay-description">
+              Global Forgetting Rate: <strong>{Number.isFinite(forgettingRate) ? `${(forgettingRate * 100).toFixed(1)}%` : 'N/A'}</strong>
+            </p>
+            <div className="decay-controls">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={Math.round((Number.isFinite(forgettingRate) ? forgettingRate : 0) * 100)}
+                onChange={(e) => {
+                  const v = Math.min(100, Math.max(0, Number(e.target.value)));
+                  setForgettingRate(v / 100);
+                }}
+              />
+              <div className="decay-controls-info">
+                <span>Drag to adjust decay (slide for dramatic effect)</span>
+                <button className="simulate-toggle" onClick={onToggleSimulate}>
+                  {isSimulating ? 'Stop Telemetry' : 'Simulate Telemetry'}
+                </button>
+              </div>
+            </div>
           <div className="decay-curve-viz">
             <svg viewBox="0 0 100 50" preserveAspectRatio="xMidYMid meet">
               <path

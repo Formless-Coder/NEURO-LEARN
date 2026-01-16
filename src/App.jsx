@@ -14,6 +14,7 @@ function App() {
   const [responseTime, setResponseTime] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const setForgettingRate = useLearningStore((state) => state.setForgettingRate);
+  const [isSimulating, setIsSimulating] = useState(false);
 
   // Track response time for quiz
   useEffect(() => {
@@ -44,6 +45,11 @@ function App() {
     setStartTime(Date.now());
   };
 
+  const handleContinueNode = (nodeId) => {
+    setSelectedNode(nodeId);
+    setStartTime(Date.now());
+  };
+
   const handleTutorToggle = () => {
     setTutorOpen(!tutorOpen);
     if (!tutorOpen) {
@@ -52,17 +58,19 @@ function App() {
   };
 
   // Simulate time decay for forgetting curve
+  // Simulation: if enabled, generate synthetic response times (telemetry)
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Gradual forgetting curve decay
-      setForgettingRate((prev) => {
-        const newRate = prev + 0.001;
-        return newRate > 1 ? 0.5 : newRate; // Reset periodically
-      });
-    }, 5000);
+    let simInterval;
+    if (isSimulating) {
+      simInterval = setInterval(() => {
+        // Random response time between 150ms (fast) and 2800ms (slow)
+        const simulated = Math.round(150 + Math.random() * 2650);
+        setResponseTime(simulated);
+      }, 1200 + Math.random() * 800);
+    }
 
-    return () => clearInterval(interval);
-  }, [setForgettingRate]);
+    return () => clearInterval(simInterval);
+  }, [isSimulating]);
 
   if (appState === 'hero') {
     return <HeroPage onStart={handleStartApp} />;
@@ -87,7 +95,12 @@ function App() {
     return (
       <div className="app-container">
         <NeuralGraph onNodeClick={handleNodeClick} selectedNodeId={selectedNode} />
-        <AdaptiveHUD responseTime={responseTime} isQuizActive={tutorOpen} />
+        <AdaptiveHUD
+          responseTime={responseTime}
+          isQuizActive={tutorOpen}
+          isSimulating={isSimulating}
+          onToggleSimulate={() => setIsSimulating((s) => !s)}
+        />
 
         {/* Back to Dashboard Button */}
         <button
@@ -111,6 +124,7 @@ function App() {
           isOpen={tutorOpen}
           onToggle={handleTutorToggle}
           selectedNode={selectedNode}
+          onNodeSelect={handleContinueNode}
         />
       </div>
     );

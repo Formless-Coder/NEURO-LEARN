@@ -179,6 +179,34 @@
   text-align: center;
 }
 
+.quiz-type-badge {
+  margin: 12px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.type-label {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.type-label.theory {
+  background: rgba(100, 150, 255, 0.2);
+  border: 1px solid rgba(100, 150, 255, 0.4);
+  color: #7aa3ff;
+}
+
+.type-label.code {
+  background: rgba(0, 242, 255, 0.2);
+  border: 1px solid rgba(0, 242, 255, 0.4);
+  color: #00f2ff;
+}
+
 .quiz-question {
   background: rgba(0, 242, 255, 0.05);
   border: 1px solid rgba(0, 242, 255, 0.2);
@@ -299,6 +327,96 @@
   font-size: 13px;
   margin: 12px 0;
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Continuation/Learning Path Styles */
+.continuation-section {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.05) 0%, rgba(100, 200, 255, 0.03) 100%);
+  border: 1px solid rgba(0, 242, 255, 0.25);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 16px 0;
+}
+
+.continuation-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00f2ff;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.continuation-header svg {
+  color: #00f2ff;
+  animation: pulse-icon 2s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.next-nodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.next-node-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(0, 242, 255, 0.08);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  border-radius: 6px;
+  color: #00f2ff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.next-node-button:hover {
+  background: rgba(0, 242, 255, 0.15);
+  border-color: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 242, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.next-node-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.next-node-label {
+  color: #00f2ff;
+  font-weight: 600;
+}
+
+.next-node-level {
+  color: rgba(0, 242, 255, 0.6);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.completion-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 @keyframes pulse-glow {

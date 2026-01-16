@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Brain, BarChart3, Zap, X } from 'lucide-react';
+import { ChevronRight, Brain, BarChart3, Zap, X, Sparkles } from 'lucide-react';
 import { useLearningStore } from '../store/learningStore';
 import { GlassPanel, StatDisplay, ProgressRing, GlassButton } from './GlassUI';
 import './NeuroTutor.css';
 
-export const NeuroTutor = ({ isOpen, onToggle, selectedNode }) => {
+export const NeuroTutor = ({ isOpen, onToggle, selectedNode, onNodeSelect }) => {
   const [quizState, setQuizState] = useState('idle'); // idle, active, completed
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -13,13 +13,15 @@ export const NeuroTutor = ({ isOpen, onToggle, selectedNode }) => {
   const nodes = useLearningStore((state) => state.nodes);
   const quizzes = useLearningStore((state) => state.quizzes);
   const getProgress = useLearningStore((state) => state.getProgress);
-  const toggleNodeMastery = useLearningStore((state) => state.toggleNodeMastery);
+  const storeCompleteQuiz = useLearningStore((state) => state.completeQuiz);
   const startQuiz = useLearningStore((state) => state.startQuiz);
   const endQuiz = useLearningStore((state) => state.endQuiz);
+  const getNextNodes = useLearningStore((state) => state.getNextNodes);
 
   const progress = getProgress();
   const selectedNodeData = selectedNode ? nodes.find((n) => n.id === selectedNode) : null;
   const quizQuestions = selectedNodeData ? quizzes[selectedNodeData.id] : [];
+  const nextNodes = selectedNodeData ? getNextNodes(selectedNodeData.id) : [];
 
   const startQuizSession = () => {
     if (selectedNodeData && quizzes[selectedNodeData.id]) {
@@ -39,17 +41,16 @@ export const NeuroTutor = ({ isOpen, onToggle, selectedNode }) => {
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      completeQuiz();
+      completeQuizSession();
     }
   };
 
-  const completeQuiz = () => {
+  const completeQuizSession = () => {
     setQuizState('completed');
     if (selectedNodeData) {
       const passThreshold = Math.ceil(quizQuestions.length * 0.7);
-      if (score + 1 >= passThreshold) {
-        toggleNodeMastery(selectedNodeData.id);
-      }
+      const passed = score + 1 >= passThreshold;
+      storeCompleteQuiz(selectedNodeData.id, passed);
     }
   };
 
@@ -163,6 +164,12 @@ export const NeuroTutor = ({ isOpen, onToggle, selectedNode }) => {
                   </span>
                 </div>
 
+                <div className="quiz-type-badge">
+                  <span className={`type-label ${quizQuestions[currentQuestionIndex]?.type === 'code' ? 'code' : 'theory'}`}>
+                    {quizQuestions[currentQuestionIndex]?.type === 'code' ? '💻 Code' : '📚 Theory'}
+                  </span>
+                </div>
+
                 <div className="quiz-question">
                   <h3>{quizQuestions[currentQuestionIndex]?.q || 'Loading question...'}</h3>
                 </div>
@@ -237,9 +244,42 @@ export const NeuroTutor = ({ isOpen, onToggle, selectedNode }) => {
                   </div>
                 )}
 
-                <GlassButton onClick={resetQuiz} className="accent">
-                  Continue Learning
-                </GlassButton>
+                {/* Continuation Suggestions */}
+                {nextNodes.length > 0 && score >= Math.ceil(quizQuestions.length * 0.7) && (
+                  <div className="continuation-section">
+                    <div className="continuation-header">
+                      <Sparkles size={18} />
+                      <span>Suggested Learning Path</span>
+                    </div>
+                    
+                    <div className="next-nodes-list">
+                      {nextNodes.map((nextNode) => (
+                        <button
+                          key={nextNode.id}
+                          className="next-node-button"
+                          onClick={() => {
+                            if (onNodeSelect) {
+                              onNodeSelect(nextNode.id);
+                            }
+                            resetQuiz();
+                          }}
+                        >
+                          <div className="next-node-content">
+                            <span className="next-node-label">{nextNode.label}</span>
+                            <span className="next-node-level">Level {nextNode.level}</span>
+                          </div>
+                          <ChevronRight size={16} />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="completion-actions">
+                  <GlassButton onClick={resetQuiz} className="accent">
+                    Back to Node
+                  </GlassButton>
+                </div>
               </motion.div>
             )}
           </motion.div>
